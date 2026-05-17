@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const navLinks = [
   { href: "#inicio", label: "Inicio" },
@@ -17,13 +18,15 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-blue-100 shadow-sm">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xs shrink-0">
-            UPB
-          </div>
-          <span className="font-semibold text-blue-900 text-sm leading-tight">
-            Unidad Pediátrica<br />Buenaventura
-          </span>
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/logo.png"
+            alt="Unidad Pediátrica Integral Buenaventura"
+            width={140}
+            height={60}
+            className="object-contain"
+            priority
+          />
         </Link>
 
         <nav className="hidden md:flex gap-6 text-sm text-slate-600">

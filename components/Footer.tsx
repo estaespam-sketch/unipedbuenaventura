@@ -1,15 +1,18 @@
+import Image from "next/image";
+
 export default function Footer() {
   return (
     <footer className="bg-blue-900 text-blue-100 py-12 px-4">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center text-blue-900 font-bold text-xs shrink-0">
-              UPB
-            </div>
-            <span className="font-semibold text-white text-sm leading-tight">
-              Unidad Pediátrica<br />Buenaventura
-            </span>
+          <div className="mb-4">
+            <Image
+              src="/logo.png"
+              alt="Unidad Pediátrica Integral Buenaventura"
+              width={160}
+              height={70}
+              className="object-contain brightness-0 invert"
+            />
           </div>
           <p className="text-blue-300 text-sm leading-relaxed">
             Especialistas en Pediatría General y Neuropediatría, con sensibilidad especial hacia el Autismo y el TEA.
