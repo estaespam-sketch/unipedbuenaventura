@@ -44,7 +44,7 @@ export default function GaleriaHero() {
               src={item.src}
               alt={item.alt ?? ""}
               fill
-              className="object-cover"
+              className="object-cover saturate-50 brightness-90"
               priority={i === 0}
             />
           ) : (
@@ -54,9 +54,11 @@ export default function GaleriaHero() {
               muted
               playsInline
               loop
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover saturate-50 brightness-90"
             />
           )}
+          {/* Overlay azul que integra las fotos con el diseño */}
+          <div className="absolute inset-0 bg-blue-700/40 rounded-3xl mix-blend-multiply" />
         </div>
       ))}
 

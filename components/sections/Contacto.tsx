@@ -18,7 +18,7 @@ function InstagramCard({ username, nombre, posts }: { username: string; nombre: 
       {/* Header de cuenta */}
       <a href={profileUrl} target="_blank" rel="noopener noreferrer"
         className="flex items-center gap-3 mb-3 hover:opacity-80 transition-opacity">
-        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-pink-500 via-red-400 to-yellow-400 flex items-center justify-center text-white shrink-0">
+        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white shrink-0">
           <IgIcon />
         </div>
         <div>
@@ -125,8 +125,8 @@ export default function Contacto() {
               username="unipedguatire"
               nombre="Unidad Pediátrica Buenaventura"
               posts={[
-                { bg: "from-blue-400 to-blue-600", emoji: "👶", caption: "Consultas disponibles" },
-                { bg: "from-blue-500 to-indigo-600", emoji: "🧠", caption: "Neuropediatría especializada" },
+                { bg: "from-blue-400 to-blue-600", emoji: "🩺", caption: "Consultas disponibles" },
+                { bg: "from-blue-500 to-indigo-600", emoji: "💊", caption: "Neuropediatría especializada" },
                 { bg: "from-indigo-400 to-blue-500", emoji: "💙", caption: "Autismo y TEA" },
               ]}
             />
@@ -136,9 +136,9 @@ export default function Contacto() {
               username="elneurologoinfantil"
               nombre="El Neurólogo Infantil"
               posts={[
-                { bg: "from-purple-400 to-indigo-600", emoji: "🔬", caption: "Tips de neurodesarrollo" },
-                { bg: "from-indigo-400 to-purple-600", emoji: "🧩", caption: "Información sobre TEA" },
-                { bg: "from-purple-500 to-blue-600", emoji: "👨‍⚕️", caption: "Crianza y desarrollo" },
+                { bg: "from-indigo-400 to-blue-600", emoji: "🔬", caption: "Tips de neurodesarrollo" },
+                { bg: "from-blue-500 to-indigo-600", emoji: "🧩", caption: "Información sobre TEA" },
+                { bg: "from-indigo-500 to-blue-700", emoji: "📋", caption: "Crianza y desarrollo" },
               ]}
             />
           </div>

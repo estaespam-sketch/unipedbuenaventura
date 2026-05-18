@@ -24,22 +24,22 @@ const testimonios = [
 
 const topicos = [
   {
-    icono: "🤱",
+    icono: "🍼",
     titulo: "Lactancia materna",
     descripcion: "Beneficios, técnicas y apoyo para madres que dan el pecho.",
   },
   {
-    icono: "🧠",
+    icono: "💡",
     titulo: "Desarrollo neurológico",
     descripcion: "¿Cómo estimular el cerebro de tu hijo en cada etapa?",
   },
   {
-    icono: "💬",
+    icono: "💙",
     titulo: "Autismo y TEA",
     descripcion: "Señales de alerta, diagnóstico temprano y recursos para familias.",
   },
   {
-    icono: "🍎",
+    icono: "🥗",
     titulo: "Alimentación infantil",
     descripcion: "Guías de nutrición desde la introducción de sólidos.",
   },

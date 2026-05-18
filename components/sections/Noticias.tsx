@@ -15,7 +15,7 @@ const coloresCat: Record<string, string> = {
   "TEA/Autismo":    "bg-purple-100 text-purple-700",
   "Nutrición":      "bg-green-100 text-green-700",
   "Desarrollo":     "bg-cyan-100 text-cyan-700",
-  "Padres":         "bg-orange-100 text-orange-700",
+  "Padres":         "bg-teal-100 text-teal-700",
 };
 
 function SkeletonCard() {
