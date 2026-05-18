@@ -5,17 +5,21 @@ export default function Footer() {
     <footer className="bg-blue-900 text-blue-100 py-12 px-4">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
 
-        {/* Sticker / Logo */}
-        <div className="flex flex-col items-center md:items-start">
-          <div className="bg-white rounded-2xl p-3 shadow-lg w-fit">
-            <Image
-              src="/sticker.png"
-              alt="Unidad Pediátrica Integral Buenaventura"
-              width={180}
-              height={180}
-              className="object-contain"
-            />
-          </div>
+        {/* Logo */}
+        <div className="flex flex-col items-center md:items-start gap-3">
+          <Image
+            src="/logo-icon.png"
+            alt="Unidad Pediátrica Integral Buenaventura"
+            width={80}
+            height={80}
+            className="object-contain"
+          />
+          <p className="font-semibold text-white text-sm leading-snug text-center md:text-left">
+            Unidad Pediátrica<br />Integral Buenaventura
+          </p>
+          <p className="text-blue-300 text-xs leading-relaxed text-center md:text-left">
+            Especialistas en Pediatría General y Neuropediatría, con sensibilidad especial hacia el Autismo y el TEA.
+          </p>
         </div>
 
         {/* Contacto */}

@@ -18,15 +18,18 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-blue-100 shadow-sm">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="flex items-center">
+        <Link href="/" className="flex items-center gap-3">
           <Image
-            src="/logo.png"
+            src="/logo-icon.png"
             alt="Unidad Pediátrica Integral Buenaventura"
-            width={140}
-            height={60}
+            width={48}
+            height={48}
             className="object-contain"
             priority
           />
+          <span className="font-semibold text-blue-900 text-sm leading-tight hidden sm:block">
+            Unidad Pediátrica<br />Integral Buenaventura
+          </span>
         </Link>
 
         <nav className="hidden md:flex gap-6 text-sm text-slate-600">

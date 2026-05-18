@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 
 const formasPago = ["Efectivo", "Transferencia", "Zelle", "PayPal", "Pago móvil", "Dólares en efectivo"];
 
@@ -9,13 +10,13 @@ const IgIcon = () => (
   </svg>
 );
 
-type Post = { bg: string; emoji: string; caption: string };
+type Post = { src: string; caption: string };
 
 function InstagramCard({ username, nombre, posts }: { username: string; nombre: string; posts: Post[] }) {
   const profileUrl = `https://www.instagram.com/${username}`;
   return (
     <div className="bg-blue-50 border border-blue-100 rounded-2xl p-4">
-      {/* Header de cuenta */}
+      {/* Header */}
       <a href={profileUrl} target="_blank" rel="noopener noreferrer"
         className="flex items-center gap-3 mb-3 hover:opacity-80 transition-opacity">
         <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white shrink-0">
@@ -30,15 +31,22 @@ function InstagramCard({ username, nombre, posts }: { username: string; nombre: 
         </svg>
       </a>
 
-      {/* Últimas 3 publicaciones */}
+      {/* Posts con imagen real */}
       <div className="grid grid-cols-3 gap-1.5">
         {posts.map((post, i) => (
           <a key={i} href={profileUrl} target="_blank" rel="noopener noreferrer"
-            className={`aspect-square rounded-xl bg-gradient-to-br ${post.bg} flex flex-col items-center justify-center gap-1 hover:opacity-90 transition-opacity overflow-hidden group`}>
-            <span className="text-2xl">{post.emoji}</span>
-            <span className="text-white text-[9px] font-medium px-1 text-center leading-tight opacity-0 group-hover:opacity-100 transition-opacity">
-              {post.caption}
-            </span>
+            className="aspect-square rounded-xl overflow-hidden relative group hover:opacity-90 transition-opacity">
+            <Image
+              src={post.src}
+              alt={post.caption}
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-end">
+              <span className="text-white text-[9px] font-medium px-1.5 pb-1 leading-tight opacity-0 group-hover:opacity-100 transition-opacity">
+                {post.caption}
+              </span>
+            </div>
           </a>
         ))}
       </div>
@@ -125,9 +133,9 @@ export default function Contacto() {
               username="unipedguatire"
               nombre="Unidad Pediátrica Buenaventura"
               posts={[
-                { bg: "from-blue-400 to-blue-600", emoji: "🩺", caption: "Consultas disponibles" },
-                { bg: "from-blue-500 to-indigo-600", emoji: "💊", caption: "Neuropediatría especializada" },
-                { bg: "from-indigo-400 to-blue-500", emoji: "💙", caption: "Autismo y TEA" },
+                { src: "/posts/post1.png", caption: "Quedan pocos cupos" },
+                { src: "/posts/post2.png", caption: "Vacúnalos" },
+                { src: "/posts/post3.png", caption: "Nuevos seguros disponibles" },
               ]}
             />
 
@@ -136,9 +144,9 @@ export default function Contacto() {
               username="elneurologoinfantil"
               nombre="El Neurólogo Infantil"
               posts={[
-                { bg: "from-indigo-400 to-blue-600", emoji: "🔬", caption: "Tips de neurodesarrollo" },
-                { bg: "from-blue-500 to-indigo-600", emoji: "🧩", caption: "Información sobre TEA" },
-                { bg: "from-indigo-500 to-blue-700", emoji: "📋", caption: "Crianza y desarrollo" },
+                { src: "/posts/post4.png", caption: "Info y citas" },
+                { src: "/posts/post5.png", caption: "#lucyinforma" },
+                { src: "/posts/post6.png", caption: "Seguros disponibles" },
               ]}
             />
           </div>
