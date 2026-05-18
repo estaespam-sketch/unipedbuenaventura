@@ -10,7 +10,8 @@ Para cada ítem devuelve un JSON con esta estructura exacta:
   "titulo": "Título claro y conciso (máximo 12 palabras)",
   "resumen": "Resumen en español de 2-3 oraciones informativas",
   "categoria": "una de: Pediatría | Neuropediatría | TEA/Autismo | Nutrición | Desarrollo | Padres",
-  "fuente": "nombre de una fuente médica reconocida (AAP, OMS, Medscape, NEJM, Lancet, etc.)"
+  "fuente": "nombre de una fuente médica reconocida (AAP, OMS, Medscape, NEJM, Lancet, etc.)",
+  "url": "URL real de la sección de pediatría de esa fuente. Usa exactamente estas: OMS=https://www.who.int/news, AAP=https://www.aap.org/en/news-room/, Medscape=https://www.medscape.com/pediatrics, NEJM=https://www.nejm.org, Lancet=https://www.thelancet.com/specialty/paediatrics"
 }
 
 Devuelve SOLO un array JSON válido con los 6 ítems. Sin texto adicional, sin markdown, sin comillas extras.`;
