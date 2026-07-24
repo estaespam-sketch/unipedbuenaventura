@@ -3,6 +3,8 @@ import { useState } from "react";
 import Image from "next/image";
 
 const formasPago = ["Efectivo", "Transferencia", "Zelle", "PayPal", "Pago móvil", "Dólares en efectivo"];
+const tiposConsulta = ["Pediatría", "Neuropediatría"];
+const hoy = new Date().toISOString().slice(0, 10);
 
 const IgIcon = () => (
   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -61,14 +63,29 @@ function InstagramCard({ username, nombre, posts }: { username: string; nombre: 
 export default function Contacto() {
   const [enviado, setEnviado] = useState(false);
   const [cargando, setCargando] = useState(false);
+  const [error, setError] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setCargando(true);
-    // Por ahora simula el envío — conectar con servicio de email
-    await new Promise((r) => setTimeout(r, 1200));
-    setCargando(false);
-    setEnviado(true);
+    setError(false);
+
+    const formData = new FormData(e.currentTarget);
+    const datos = Object.fromEntries(formData.entries());
+
+    try {
+      const res = await fetch("/api/contacto", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(datos),
+      });
+      if (!res.ok) throw new Error("Error al enviar");
+      setEnviado(true);
+    } catch {
+      setError(true);
+    } finally {
+      setCargando(false);
+    }
   }
 
   return (
@@ -167,46 +184,72 @@ export default function Contacto() {
               <form onSubmit={handleSubmit} className="bg-blue-50 border border-blue-100 rounded-2xl p-6 flex flex-col gap-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-semibold text-blue-900 uppercase tracking-wide">Fecha deseada para la cita *</label>
+                    <input name="fechaCita" required type="date" min={hoy} className="bg-white border border-blue-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-semibold text-blue-900 uppercase tracking-wide">Hora deseada *</label>
+                    <input name="horaCita" required type="time" className="bg-white border border-blue-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1.5">
                     <label className="text-xs font-semibold text-blue-900 uppercase tracking-wide">Nombre del representante *</label>
-                    <input required className="bg-white border border-blue-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Tu nombre completo" />
+                    <input name="representante" required className="bg-white border border-blue-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Tu nombre completo" />
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-xs font-semibold text-blue-900 uppercase tracking-wide">Nombre del paciente *</label>
-                    <input required className="bg-white border border-blue-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Nombre del niño/niña" />
+                    <input name="paciente" required className="bg-white border border-blue-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Nombre del niño/niña" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
                     <label className="text-xs font-semibold text-blue-900 uppercase tracking-wide">Fecha de nacimiento *</label>
-                    <input required type="date" className="bg-white border border-blue-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                    <input name="fechaNacimiento" required type="date" className="bg-white border border-blue-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" />
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-xs font-semibold text-blue-900 uppercase tracking-wide">Teléfono *</label>
-                    <input required type="tel" className="bg-white border border-blue-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="0424-000.0000" />
+                    <input name="telefono" required type="tel" className="bg-white border border-blue-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="0424-000.0000" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
                     <label className="text-xs font-semibold text-blue-900 uppercase tracking-wide">Correo electrónico *</label>
-                    <input required type="email" className="bg-white border border-blue-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="correo@ejemplo.com" />
+                    <input name="correo" required type="email" className="bg-white border border-blue-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="correo@ejemplo.com" />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-semibold text-blue-900 uppercase tracking-wide">Forma de pago *</label>
-                    <select required className="bg-white border border-blue-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <label className="text-xs font-semibold text-blue-900 uppercase tracking-wide">Tipo de consulta *</label>
+                    <select name="tipoConsulta" required className="bg-white border border-blue-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
                       <option value="">Seleccionar...</option>
-                      {formasPago.map((f) => <option key={f}>{f}</option>)}
+                      {tiposConsulta.map((t) => <option key={t}>{t}</option>)}
                     </select>
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-semibold text-blue-900 uppercase tracking-wide">
-                    Redes sociales <span className="text-slate-400 font-normal">(opcional)</span>
-                  </label>
-                  <input className="bg-white border border-blue-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="@usuario (Instagram, Facebook, etc.)" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-semibold text-blue-900 uppercase tracking-wide">Forma de pago *</label>
+                    <select name="formaPago" required className="bg-white border border-blue-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+                      <option value="">Seleccionar...</option>
+                      {formasPago.map((f) => <option key={f}>{f}</option>)}
+                    </select>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-semibold text-blue-900 uppercase tracking-wide">
+                      Redes sociales <span className="text-slate-400 font-normal">(opcional)</span>
+                    </label>
+                    <input name="redesSociales" className="bg-white border border-blue-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="@usuario (Instagram, Facebook, etc.)" />
+                  </div>
                 </div>
+
+                {error && (
+                  <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-2.5">
+                    Hubo un problema al enviar tu solicitud. Por favor escríbenos directo por WhatsApp.
+                  </p>
+                )}
 
                 <button
                   type="submit"
