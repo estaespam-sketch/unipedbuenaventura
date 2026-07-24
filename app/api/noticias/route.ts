@@ -33,7 +33,10 @@ export async function GET() {
       max_tokens: 1500,
     });
 
-    const texto = completion.choices[0]?.message?.content ?? "[]";
+    const texto = (completion.choices[0]?.message?.content ?? "[]")
+      .trim()
+      .replace(/^```(?:json)?\n?/, "")
+      .replace(/\n?```$/, "");
     const noticias = JSON.parse(texto);
 
     return NextResponse.json({ noticias });
