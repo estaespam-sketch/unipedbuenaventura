@@ -34,3 +34,24 @@ Ver plan completo en la conversación. Resumen ejecutable:
 ## Lessons (nueva)
 - Este proyecto NO tiene integración Git→Vercel automática: hay que correr `vercel --prod` explícitamente después de cada `git push` para que los cambios lleguen al sitio real (confirmado revisando `list_deployments`: todos los deploys anteriores tienen `actor: claude-code_*_agent`, o sea CLI manual, no webhook).
 - Las rutas GET de `app/api/*/route.ts` con `export const revalidate = N` quedan cacheadas como contenido estático (se ve como "○ Static" en el build) — si la generación falla una vez, el error queda servido hasta la siguiente revalidación. Con llamadas a LLMs conviene limpiar/validar la respuesta antes de cachearla.
+
+## Sesión 2026-07-24 (parte 2): mejoras de confianza/SEO
+
+- [x] Horario real + ubicación con mapa embebido (iframe sin API key) en Contacto.tsx y Footer.tsx, con datos sacados del Google Business Profile real (capturas que mandó Pam)
+- [x] Reseñas falsas (Andrea M., Roberto S., etc.) reemplazadas por 2 reseñas reales de Google (Jonathan Colina, Ariana Berroteran) + conteo real (201 opiniones) + link correcto a Maps
+- [x] Correo de confirmación automático al padre/representante (además del correo al consultorio)
+- [x] Botón de WhatsApp flotante en todo el scroll
+- [x] Sección "Sobre el Doctor" con ilustración de marca (Dr. Herman Belisario NO permite fotos/videos reales, solo la ilustración de @elneurologoinfantil)
+- [x] Franja de seguros aceptados (Fundación España Salud, Fundación Seguros Caracas, Seguros Universitas, Seguros Miranda, CIMECI)
+- [x] SEO: Open Graph + JSON-LD (MedicalClinic) con datos reales
+- [x] Fix next/image en preview de Noticias
+- [x] Deploy a producción, probado con POST real sin errores
+
+## Pendiente / limitación conocida
+- **El correo de confirmación al padre NO le va a llegar a un padre real todavía.** Resend está en modo de prueba (sin dominio propio verificado) y por eso solo permite mandar correos a la casilla con la que se registró la cuenta (secretariadr.belisario@gmail.com). El código ya está listo y no rompe nada (si falla, solo se loguea, el consultorio igual recibe su notificación) — pero para que el padre reciba su confirmación de verdad, hay que verificar un dominio propio en resend.com/domains (Pam necesita tener un dominio, ej. comprarlo en Vercel, y agregar los registros DNS que pida Resend).
+- Quedaron fuera de esta ronda (necesitan más info de Pam): sección de Preguntas Frecuentes.
+
+## Lessons (nueva, parte 2)
+- El optimizador de imágenes de `next dev` (`/_next/image`) cachea en memoria del proceso; si se reemplaza un archivo en `/public` sin reiniciar el servidor **de verdad** (matar el proceso, no solo el puerto — `npm run dev &` a veces deja un proceso zombie que sigue respondiendo en el mismo puerto), se sigue sirviendo la versión vieja aunque el archivo en disco ya cambió. Solución: `pkill -f "next dev"` + `lsof -ti:3000 | xargs kill -9` + borrar `.next/` antes de reiniciar.
+- Para verificar el crop de una imagen antes de escribir código, usar `sips -c H W --cropOffset Y X` (orden Y luego X) sobre una copia de prueba y mirar el resultado — más confiable que adivinar `object-position` a ciegas.
+- Resend sandbox (sin dominio verificado) SOLO permite mandar a la casilla del dueño de la cuenta — así que cualquier función que le mande correo a un tercero (ej. confirmación al paciente) no va a funcionar en real hasta verificar un dominio propio.
