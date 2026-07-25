@@ -72,6 +72,26 @@ async function enviarCorreo(datos: DatosFormulario) {
   if (error) throw new Error(error.message);
 }
 
+async function confirmarCorreoPaciente(datos: DatosFormulario) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const { error } = await resend.emails.send({
+    from: "Unidad Pediátrica Buenaventura <onboarding@resend.dev>",
+    to: datos.correo,
+    subject: "Recibimos tu solicitud de cita",
+    text: [
+      `Hola ${datos.representante},`,
+      "",
+      `Recibimos tu solicitud de cita para ${datos.paciente} (${datos.tipoConsulta}) el ${datos.fechaCita} a las ${datos.horaCita}.`,
+      "En breve nos pondremos en contacto contigo para confirmar.",
+      "",
+      "Si tienes alguna urgencia, escríbenos por WhatsApp al 0424-298.4023.",
+      "",
+      "Unidad Pediátrica Buenaventura",
+    ].join("\n"),
+  });
+  if (error) throw new Error(error.message);
+}
+
 async function crearEventoCalendario(datos: DatosFormulario) {
   const auth = new google.auth.JWT({
     email: process.env.GOOGLE_CLIENT_EMAIL,
@@ -102,22 +122,21 @@ export async function POST(request: NextRequest) {
   }
 
   const completos = datos as DatosFormulario;
-  const resultados = await Promise.allSettled([
-    enviarCorreo(completos),
-    crearEventoCalendario(completos),
-  ]);
+  const tareas = [
+    { nombre: "Error enviando correo al consultorio:", promesa: enviarCorreo(completos) },
+    { nombre: "Error creando evento en calendario:", promesa: crearEventoCalendario(completos) },
+    { nombre: "Error enviando correo de confirmación al paciente:", promesa: confirmarCorreoPaciente(completos) },
+  ];
+  const resultados = await Promise.allSettled(tareas.map((t) => t.promesa));
 
   resultados.forEach((resultado, i) => {
     if (resultado.status === "rejected") {
-      console.error(
-        i === 0 ? "Error enviando correo:" : "Error creando evento en calendario:",
-        resultado.reason
-      );
+      console.error(tareas[i].nombre, resultado.reason);
     }
   });
 
-  const fallaronAmbos = resultados.every((r) => r.status === "rejected");
-  if (fallaronAmbos) {
+  const fallaronTodos = resultados.every((r) => r.status === "rejected");
+  if (fallaronTodos) {
     return NextResponse.json({ error: "No se pudo procesar la solicitud" }, { status: 500 });
   }
 

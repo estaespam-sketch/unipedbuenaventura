@@ -1,31 +1,17 @@
 const resenas = [
   {
-    nombre: "Andrea M.",
-    fecha: "Hace 2 semanas",
+    nombre: "Jonathan Colina",
+    fecha: "Hace 1 semana",
     estrellas: 5,
-    texto: "Excelente atención. El médico es muy profesional y sobre todo muy humano con los niños. Mi hijo salió feliz de la consulta, lo cual es difícil de lograr. 100% recomendado.",
-    inicial: "A",
+    texto: "Bueno la atención del Dr. Belisario espectacular excelente, son muy atentos desde el trato con su asistente hasta la atención del Doctor ha sido excepcional.",
+    inicial: "J",
   },
   {
-    nombre: "Roberto S.",
-    fecha: "Hace 1 mes",
-    estrellas: 5,
-    texto: "Llevamos a nuestro hijo con sospecha de autismo y el diagnóstico fue muy bien manejado. Nos explicaron todo con detalle y sin apresurarnos. Estamos muy agradecidos.",
-    inicial: "R",
-  },
-  {
-    nombre: "Patricia V.",
-    fecha: "Hace 2 meses",
-    estrellas: 5,
-    texto: "La consulta fue muy completa. Hicieron seguimiento detallado del desarrollo de mi bebé. El ambiente del consultorio es cómodo y el trato del personal es excelente.",
-    inicial: "P",
-  },
-  {
-    nombre: "Juan C.",
+    nombre: "Ariana Berroteran",
     fecha: "Hace 3 meses",
     estrellas: 5,
-    texto: "Increíble profesionalismo. Mi hija tenía retrasos en el lenguaje y gracias a la atención temprana ha avanzado muchísimo. No cambiaría este equipo por nada.",
-    inicial: "J",
+    texto: "El doctor Belisario atiende a mi hija desde los 4 meses y ya tiene 6 años. Su atención siempre ha sido excelente, siempre nos explica todo y nos ayuda con las emergencias que se puedan presentar.",
+    inicial: "A",
   },
 ];
 
@@ -60,7 +46,7 @@ export default function Resenas() {
           <div className="flex items-center justify-center gap-2 mb-2">
             <Estrellas cantidad={5} />
             <span className="text-slate-600 font-semibold text-sm">5.0</span>
-            <span className="text-slate-400 text-sm">en Google</span>
+            <span className="text-slate-400 text-sm">· 201 opiniones en Google</span>
           </div>
         </div>
 
@@ -95,7 +81,7 @@ export default function Resenas() {
 
         <div className="text-center mt-10">
           <a
-            href="https://www.google.com/maps/place/Neuropeditría+Unidad+Pediátrica+Buenaventura/data=!4m2!3m1!1s0x0:0x78ab874437b30904?sa=X&ved=1t:2428&ictx=111"
+            href="https://maps.app.goo.gl/BK55N9wQpXw2YLwE9"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-white border border-blue-200 hover:border-blue-400 text-blue-700 font-semibold text-sm px-6 py-3 rounded-full transition-colors shadow-sm"

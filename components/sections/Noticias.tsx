@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 type Noticia = {
   titulo: string;
@@ -40,11 +41,12 @@ function PreviewPopover({ url, fuente }: { url: string; fuente: string }) {
       <div className="bg-white rounded-2xl shadow-2xl border border-blue-100 overflow-hidden">
         {/* Screenshot del sitio */}
         <div className="relative h-36 bg-slate-100 overflow-hidden">
-          <img
+          <Image
             src={screenshotUrl}
             alt={`Preview de ${fuente}`}
-            className="w-full h-full object-cover object-top"
-            loading="lazy"
+            fill
+            sizes="288px"
+            className="object-cover object-top"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent" />
         </div>

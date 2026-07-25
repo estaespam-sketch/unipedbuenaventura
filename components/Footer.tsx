@@ -33,6 +33,17 @@ export default function Footer() {
             </li>
             <li>📞 0212-750.0500</li>
             <li>📞 0212-750.0501</li>
+            <li className="pt-2 text-blue-400">
+              <a
+                href="https://maps.app.goo.gl/BK55N9wQpXw2YLwE9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors"
+              >
+                C.C. Buenaventura, Guatire 1221, Miranda
+              </a>
+            </li>
+            <li className="text-blue-400">Lun–Vie 8am–5pm (según el día) · Sáb–Dom cerrado</li>
           </ul>
         </div>
 

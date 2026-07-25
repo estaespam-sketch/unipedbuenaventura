@@ -41,6 +41,14 @@ const servicios = [
   },
 ];
 
+const seguros = [
+  "Fundación España Salud",
+  "Fundación Seguros Caracas",
+  "Seguros Universitas",
+  "Seguros Miranda",
+  "CIMECI",
+];
+
 export default function Servicios() {
   return (
     <section id="servicios" className="py-20 px-4 bg-white">
@@ -91,6 +99,22 @@ export default function Servicios() {
               </a>
             </div>
           ))}
+        </div>
+
+        <div className="mt-14 text-center">
+          <p className="text-xs font-semibold text-blue-900 uppercase tracking-widest mb-4">
+            Seguros y convenios aceptados
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-2.5">
+            {seguros.map((s) => (
+              <span
+                key={s}
+                className="bg-blue-50 border border-blue-200 text-blue-700 text-sm font-medium px-4 py-1.5 rounded-full"
+              >
+                {s}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </section>

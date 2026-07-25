@@ -145,6 +145,49 @@ export default function Contacto() {
               </div>
             </div>
 
+            {/* Horario y ubicación */}
+            <div className="bg-blue-50 border border-blue-100 rounded-2xl p-5 flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
+                <p className="font-semibold text-blue-900 text-sm">Horario de atención</p>
+                <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm text-slate-600">
+                  <span>Lunes</span><span>8:00am – 5:00pm</span>
+                  <span>Martes</span><span>8:00am – 5:00pm</span>
+                  <span>Miércoles</span><span>8:00am – 3:00pm</span>
+                  <span>Jueves</span><span>8:00am – 4:00pm</span>
+                  <span>Viernes</span><span>8:00am – 4:00pm</span>
+                  <span className="text-slate-400">Sábado y domingo</span><span className="text-slate-400">Cerrado</span>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-2 pt-2 border-t border-blue-100">
+                <p className="font-semibold text-blue-900 text-sm">Ubicación</p>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  Piso 2, Consultorio 2-45, Edificio Centro Médico Buenaventura, Av. Intercomunal Guarenas-Guatire, C.C. Buenaventura, Guatire 1221, Miranda
+                </p>
+                <div className="rounded-xl overflow-hidden border border-blue-100">
+                  <iframe
+                    title="Ubicación del consultorio"
+                    src="https://www.google.com/maps?q=Centro+Comercial+Buenaventura,+Guatire+1221,+Miranda,+Venezuela&output=embed"
+                    width="100%"
+                    height="180"
+                    loading="lazy"
+                    className="border-0"
+                  />
+                </div>
+                <a
+                  href="https://maps.app.goo.gl/BK55N9wQpXw2YLwE9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                >
+                  Cómo llegar
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
             {/* Instagram @unipedguatire */}
             <InstagramCard
               username="unipedguatire"
