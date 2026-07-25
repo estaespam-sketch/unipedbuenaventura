@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://unipedbuenaventura.vercel.app"),
   title: "Unidad Pediátrica Buenaventura",
   description:
-    "Especialistas en Pediatría General y Neuropediatría, con enfoque en autismo y TEA. Agenda tu cita en Guatire.",
+    "Especialistas en Pediatría General y Neuropediatría, con enfoque en Autismo (TEA). Agenda tu cita en Guatire.",
   keywords: [
     "pediatra Guatire",
     "neuropediatra Guatire",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Unidad Pediátrica Buenaventura",
     description:
-      "Especialistas en Pediatría General y Neuropediatría, con enfoque en autismo y TEA. Agenda tu cita en Guatire.",
+      "Especialistas en Pediatría General y Neuropediatría, con enfoque en Autismo (TEA). Agenda tu cita en Guatire.",
     url: "https://unipedbuenaventura.vercel.app",
     siteName: "Unidad Pediátrica Buenaventura",
     locale: "es_VE",

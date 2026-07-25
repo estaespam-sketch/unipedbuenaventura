@@ -15,7 +15,8 @@ export default function Hero() {
           </h1>
           <p className="text-slate-600 text-lg leading-relaxed mb-8 max-w-lg">
             En la Unidad Pediátrica Buenaventura ofrecemos atención especializada con calidez y dedicación.
-            Expertos en Pediatría General y Neuropediatría, con especial sensibilidad hacia el Autismo y el TEA.
+            Expertos en Pediatría General y Neuropediatría, con especial sensibilidad hacia el Autismo (TEA).
+            Ubicados en Guatire, Miranda.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
