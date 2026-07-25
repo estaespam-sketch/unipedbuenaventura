@@ -57,7 +57,7 @@ const topicos: Topico[] = [
   },
   {
     icono: "💙",
-    titulo: "Autismo y TEA",
+    titulo: "Autismo (TEA)",
     descripcion: "Señales de alerta, diagnóstico temprano y recursos para familias.",
     color: "bg-blue-100 border-blue-200",
     contenido: {
@@ -88,27 +88,6 @@ const topicos: Topico[] = [
       consejo: "Ofrecer un alimento nuevo puede requerir hasta 10-15 exposiciones antes de que el niño lo acepte. ¡La paciencia es la clave!",
       imagen: "🥦",
     },
-  },
-];
-
-const testimonios = [
-  {
-    nombre: "María G.",
-    texto: "Gracias a la Unidad Pediátrica Buenaventura pudimos entender mucho mejor el diagnóstico de autismo de nuestro hijo. El trato fue extraordinario: con paciencia, claridad y mucho respeto.",
-    rol: "Mamá de Alejandro, 5 años",
-    inicial: "M",
-  },
-  {
-    nombre: "Carlos R.",
-    texto: "Llevamos a nuestra hija por retrasos del lenguaje y el seguimiento fue impecable. Nos explicaron cada paso del proceso y siempre nos hicieron sentir acompañados.",
-    rol: "Papá de Valentina, 3 años",
-    inicial: "C",
-  },
-  {
-    nombre: "Luisa P.",
-    texto: "Como mamá primeriza tenía mil dudas. Aquí siempre me recibieron con calma y resolvieron cada pregunta. El control de crecimiento de mi bebé ha sido perfecto.",
-    rol: "Mamá de Sebastián, 8 meses",
-    inicial: "L",
   },
 ];
 
@@ -219,41 +198,15 @@ export default function EspacioPadres() {
           />
         ))}
 
-        {/* Testimonios */}
-        <div>
-          <h3 className="text-xl font-bold text-blue-900 text-center mb-8">
-            Experiencias de nuestras familias
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonios.map((t) => (
-              <div key={t.nombre} className="bg-blue-50 border border-blue-100 rounded-2xl p-6 flex flex-col gap-4">
-                <svg className="w-8 h-8 text-blue-300" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                </svg>
-                <p className="text-sm text-slate-600 leading-relaxed italic">{t.texto}</p>
-                <div className="flex items-center gap-3 mt-auto pt-4 border-t border-blue-100">
-                  <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm shrink-0">
-                    {t.inicial}
-                  </div>
-                  <div>
-                    <p className="font-semibold text-sm text-blue-900">{t.nombre}</p>
-                    <p className="text-xs text-slate-400">{t.rol}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="text-center mt-10">
-          <p className="text-sm text-slate-400 mb-4">¿Quieres compartir tu experiencia?</p>
+        <div className="text-center">
+          <p className="text-sm text-slate-400 mb-4">¿Tienes dudas sobre alguno de estos temas?</p>
           <a
-            href="https://wa.me/584242984023?text=Hola,%20quisiera%20compartir%20mi%20experiencia%20en%20la%20clínica"
+            href="https://wa.me/584242984023?text=Hola,%20tengo%20una%20consulta%20sobre%20uno%20de%20los%20temas%20del%20Espacio%20para%20Familias"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 border border-blue-300 text-blue-600 hover:bg-blue-50 text-sm font-semibold px-6 py-2.5 rounded-full transition-colors"
+            className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white text-sm font-semibold px-6 py-2.5 rounded-full transition-colors"
           >
-            Enviar mi testimonio
+            Escríbenos por WhatsApp
           </a>
         </div>
       </div>
