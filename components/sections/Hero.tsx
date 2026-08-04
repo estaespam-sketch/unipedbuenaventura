@@ -21,7 +21,7 @@ export default function Hero() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <a
-              href="https://wa.me/584242984023?text=Hola,%20quisiera%20solicitar%20una%20cita"
+              href="https://wa.me/584242984023?text=%C2%A1Hola!%20Vengo%20desde%20la%20p%C3%A1gina%20web%20y%20quisiera%20agendar%20una%20cita."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold px-7 py-3.5 rounded-full transition-colors shadow-md text-sm"

@@ -107,7 +107,7 @@ export default function Contacto() {
           {/* Info de contacto */}
           <div className="flex flex-col gap-6">
             <a
-              href="https://wa.me/584242984023?text=Hola,%20quisiera%20solicitar%20una%20cita"
+              href="https://wa.me/584242984023?text=%C2%A1Hola!%20Vengo%20desde%20la%20p%C3%A1gina%20web%20y%20quisiera%20agendar%20una%20cita."
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-4 bg-green-50 border border-green-200 rounded-2xl p-5 hover:border-green-400 transition-colors group"

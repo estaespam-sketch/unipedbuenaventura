@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const servicios = [
   {
     icon: (
@@ -11,13 +13,12 @@ const servicios = [
     puntos: [
       "Control de crecimiento y desarrollo",
       "Esquema de vacunación",
-      "Atención de enfermedades agudas",
-      "Orientación nutricional",
       "Consulta de urgencia",
     ],
     color: "bg-blue-600",
     bg: "bg-blue-50",
     border: "border-blue-200",
+    pagina: "/pediatria",
   },
   {
     icon: (
@@ -31,13 +32,12 @@ const servicios = [
     puntos: [
       "Evaluación del neurodesarrollo",
       "Diagnóstico de Autismo / TEA",
-      "Trastornos del lenguaje y aprendizaje",
       "TDAH y dificultades de atención",
-      "Acompañamiento familiar integral",
     ],
     color: "bg-indigo-600",
     bg: "bg-indigo-50",
     border: "border-indigo-200",
+    pagina: "/neurologia",
   },
 ];
 
@@ -88,15 +88,23 @@ export default function Servicios() {
                   ))}
                 </ul>
               </div>
-              <a
-                href="#contacto"
-                className={`mt-auto inline-flex items-center gap-2 ${s.color} hover:opacity-90 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-opacity w-fit`}
-              >
-                Solicitar cita
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
+              <div className="mt-auto flex flex-wrap items-center gap-4">
+                <Link
+                  href="/#contacto"
+                  className={`inline-flex items-center gap-2 ${s.color} hover:opacity-90 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-opacity w-fit`}
+                >
+                  Solicitar cita
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+                <Link
+                  href={s.pagina}
+                  className="text-sm font-semibold text-blue-700 hover:text-blue-900 underline underline-offset-2"
+                >
+                  Ver más sobre {s.titulo} →
+                </Link>
+              </div>
             </div>
           ))}
         </div>

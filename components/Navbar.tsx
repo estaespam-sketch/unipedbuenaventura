@@ -3,17 +3,34 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-const navLinks = [
-  { href: "#inicio", label: "Inicio" },
-  { href: "#servicios", label: "Servicios" },
-  { href: "#noticias", label: "Noticias" },
-  { href: "#padres", label: "Para Padres" },
-  { href: "#resenas", label: "Reseñas" },
-  { href: "#contacto", label: "Contacto" },
+type NavLink =
+  | { label: string; href: string; submenu?: undefined }
+  | { label: string; href?: undefined; submenu: { href: string; label: string }[] };
+
+const navLinks: NavLink[] = [
+  { href: "/#inicio", label: "Inicio" },
+  {
+    label: "Servicios",
+    submenu: [
+      { href: "/pediatria", label: "Pediatría" },
+      { href: "/neurologia", label: "Neurología" },
+      { href: "/vacunas", label: "Vacunas" },
+      { href: "/seguros", label: "Seguros" },
+    ],
+  },
+  { href: "/#padres", label: "Para Padres" },
+  { href: "/#noticias", label: "Noticias" },
+  { href: "/preguntas-frecuentes", label: "Preguntas Frecuentes" },
+  { href: "/#resenas", label: "Reseñas" },
+  { href: "/#contacto", label: "Contacto" },
 ];
+
+const WHATSAPP_HREF =
+  "https://wa.me/584242984023?text=%C2%A1Hola!%20Vengo%20desde%20la%20p%C3%A1gina%20web%20y%20quisiera%20agendar%20una%20cita.";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [serviciosOpen, setServiciosOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-blue-100 shadow-sm">
@@ -32,20 +49,61 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <nav className="hidden md:flex gap-6 text-sm text-slate-600">
-          {navLinks.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="hover:text-blue-600 transition-colors font-medium"
-            >
-              {l.label}
-            </a>
-          ))}
+        <nav className="hidden md:flex items-center gap-6 text-sm text-slate-600">
+          {navLinks.map((l) =>
+            l.submenu ? (
+              <div
+                key={l.label}
+                className="relative"
+                onMouseEnter={() => setServiciosOpen(true)}
+                onMouseLeave={() => setServiciosOpen(false)}
+              >
+                <button
+                  onClick={() => setServiciosOpen((v) => !v)}
+                  aria-expanded={serviciosOpen}
+                  className="flex items-center gap-1 hover:text-blue-600 transition-colors font-medium"
+                >
+                  {l.label}
+                  <svg
+                    className={`w-3.5 h-3.5 transition-transform ${serviciosOpen ? "rotate-180" : ""}`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {serviciosOpen && (
+                  <div className="absolute top-full left-0 pt-2 w-48">
+                    <div className="bg-white border border-blue-100 rounded-xl shadow-lg py-2">
+                      {l.submenu.map((s) => (
+                        <Link
+                          key={s.href}
+                          href={s.href}
+                          onClick={() => setServiciosOpen(false)}
+                          className="block px-4 py-2 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50"
+                        >
+                          {s.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <a
+                key={l.href}
+                href={l.href}
+                className="hover:text-blue-600 transition-colors font-medium"
+              >
+                {l.label}
+              </a>
+            )
+          )}
         </nav>
 
         <a
-          href="https://wa.me/584242984023?text=Hola,%20quisiera%20solicitar%20una%20cita"
+          href={WHATSAPP_HREF}
           target="_blank"
           rel="noopener noreferrer"
           className="hidden md:inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white text-sm font-semibold px-5 py-2 rounded-full transition-colors shadow-sm"
@@ -73,18 +131,55 @@ export default function Navbar() {
 
       {open && (
         <div className="md:hidden bg-white border-t border-blue-50 px-4 pb-4 pt-2 flex flex-col gap-1">
-          {navLinks.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className="block py-2 text-slate-600 hover:text-blue-600 text-sm font-medium"
-            >
-              {l.label}
-            </a>
-          ))}
+          {navLinks.map((l) =>
+            l.submenu ? (
+              <div key={l.label} className="flex flex-col">
+                <button
+                  onClick={() => setServiciosOpen((v) => !v)}
+                  aria-expanded={serviciosOpen}
+                  className="flex items-center justify-between py-2 text-slate-600 hover:text-blue-600 text-sm font-medium"
+                >
+                  {l.label}
+                  <svg
+                    className={`w-4 h-4 transition-transform ${serviciosOpen ? "rotate-180" : ""}`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {serviciosOpen && (
+                  <div className="flex flex-col pl-4 ml-1 mb-1 border-l-2 border-blue-100">
+                    {l.submenu.map((s) => (
+                      <Link
+                        key={s.href}
+                        href={s.href}
+                        onClick={() => {
+                          setOpen(false);
+                          setServiciosOpen(false);
+                        }}
+                        className="py-2 text-slate-500 hover:text-blue-600 text-sm"
+                      >
+                        {s.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="block py-2 text-slate-600 hover:text-blue-600 text-sm font-medium"
+              >
+                {l.label}
+              </a>
+            )
+          )}
           <a
-            href="https://wa.me/584242984023?text=Hola,%20quisiera%20solicitar%20una%20cita"
+            href={WHATSAPP_HREF}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-2 flex items-center justify-center gap-2 bg-green-500 text-white text-sm font-semibold px-4 py-2.5 rounded-full"

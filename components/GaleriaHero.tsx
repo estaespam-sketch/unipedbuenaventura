@@ -6,20 +6,29 @@ const items = [
   { tipo: "imagen", src: "/galeria/clinica1.jpg", alt: "Consultorio pediátrico" },
   { tipo: "imagen", src: "/galeria/clinica2.jpg", alt: "Sala de consulta" },
   { tipo: "imagen", src: "/galeria/clinica3.jpg", alt: "Niños en el consultorio" },
-  { tipo: "video",  src: "/galeria/video1.mov" },
-  { tipo: "video",  src: "/galeria/video2.mov" },
+  { tipo: "video",  src: "/galeria/video1.mp4" },
+  { tipo: "video",  src: "/galeria/video2.mp4" },
 ];
+
+function marcarMostrado(set: Set<number>, i: number) {
+  return set.has(i) ? set : new Set(set).add(i);
+}
 
 export default function GaleriaHero() {
   const [actual, setActual] = useState(0);
+  // Índices que ya fueron activos alguna vez: evita precargar los videos desde el inicio,
+  // solo se "montan" de verdad cuando les toca aparecer por primera vez en el carrusel.
+  const [mostrados, setMostrados] = useState<Set<number>>(() => new Set([0]));
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActual((prev) => (prev + 1) % items.length);
+    const timer = setTimeout(() => {
+      const siguiente = (actual + 1) % items.length;
+      setActual(siguiente);
+      setMostrados((prev) => marcarMostrado(prev, siguiente));
     }, 2000);
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearTimeout(timer);
+  }, [actual]);
 
   useEffect(() => {
     // Asegura que el video activo se reproduzca desde el inicio
@@ -47,15 +56,18 @@ export default function GaleriaHero() {
               className="object-cover saturate-50 brightness-90"
               priority={i === 0}
             />
-          ) : (
+          ) : mostrados.has(i) ? (
             <video
               ref={(el) => { videoRefs.current[i] = el; }}
               src={item.src}
               muted
               playsInline
               loop
+              preload={i === actual ? "auto" : "none"}
               className="w-full h-full object-cover saturate-50 brightness-90"
             />
+          ) : (
+            <div className="w-full h-full bg-blue-200" />
           )}
           {/* Overlay azul que integra las fotos con el diseño */}
           <div className="absolute inset-0 bg-blue-700/40 rounded-3xl mix-blend-multiply" />
@@ -67,7 +79,10 @@ export default function GaleriaHero() {
         {items.map((_, i) => (
           <button
             key={i}
-            onClick={() => setActual(i)}
+            onClick={() => {
+              setActual(i);
+              setMostrados((prev) => marcarMostrado(prev, i));
+            }}
             className={`w-2 h-2 rounded-full transition-all ${
               i === actual ? "bg-white scale-110" : "bg-white/50"
             }`}

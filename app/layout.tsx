@@ -11,7 +11,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://unipedbuenaventura.vercel.app"),
+  metadataBase: new URL("https://unidadpediatricabuenaventura.com"),
   title: "Unidad Pediátrica Buenaventura",
   description:
     "Especialistas en Pediatría General y Neuropediatría, con enfoque en Autismo (TEA). Agenda tu cita en Guatire.",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: "Unidad Pediátrica Buenaventura",
     description:
       "Especialistas en Pediatría General y Neuropediatría, con enfoque en Autismo (TEA). Agenda tu cita en Guatire.",
-    url: "https://unipedbuenaventura.vercel.app",
+    url: "https://unidadpediatricabuenaventura.com",
     siteName: "Unidad Pediátrica Buenaventura",
     locale: "es_VE",
     type: "website",
@@ -39,7 +39,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "MedicalClinic",
   name: "Neuropediatría Unidad Pediátrica Buenaventura",
-  image: "https://unipedbuenaventura.vercel.app/galeria/clinica1.jpg",
+  image: "https://unidadpediatricabuenaventura.com/galeria/clinica1.jpg",
   telephone: "+58-424-298-4023",
   address: {
     "@type": "PostalAddress",
@@ -49,7 +49,7 @@ const jsonLd = {
     postalCode: "1221",
     addressCountry: "VE",
   },
-  url: "https://unipedbuenaventura.vercel.app",
+  url: "https://unidadpediatricabuenaventura.com",
   medicalSpecialty: ["Pediatric", "Neurologic"],
   openingHoursSpecification: [
     { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday"], opens: "08:00", closes: "17:00" },

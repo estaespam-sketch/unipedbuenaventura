@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function SobreElDoctor() {
   return (
-    <section className="py-14 px-4 bg-blue-50">
+    <section id="doctor" className="py-14 px-4 bg-blue-50">
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center gap-6 justify-center text-center sm:text-left">
         <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-md shrink-0 bg-blue-100">
           <Image

@@ -51,7 +51,52 @@ Ver plan completo en la conversación. Resumen ejecutable:
 - **El correo de confirmación al padre NO le va a llegar a un padre real todavía.** Resend está en modo de prueba (sin dominio propio verificado) y por eso solo permite mandar correos a la casilla con la que se registró la cuenta (secretariadr.belisario@gmail.com). El código ya está listo y no rompe nada (si falla, solo se loguea, el consultorio igual recibe su notificación) — pero para que el padre reciba su confirmación de verdad, hay que verificar un dominio propio en resend.com/domains (Pam necesita tener un dominio, ej. comprarlo en Vercel, y agregar los registros DNS que pida Resend).
 - Quedaron fuera de esta ronda (necesitan más info de Pam): sección de Preguntas Frecuentes.
 
+## Sesión 2026-07-28: conectar dominio propio (unidadpediatricabuenaventura.com)
+
+Dominio registrado en HostGator (plan de negocio, con correo activo). Decisión: **opción mixta** — el dominio se queda registrado en HostGator, solo se apunta la web a Vercel vía registros A (no se transfiere el registrador, no se tocan los nameservers, para no romper el correo).
+
+- [x] Confirmado: proyecto ya vinculado a Vercel (`unipedbuenaventura`, `.vercel/project.json`)
+- [x] `vercel domains add unidadpediatricabuenaventura.com` → agregado al proyecto
+- [x] `vercel domains add www.unidadpediatricabuenaventura.com` → agregado al proyecto
+- [x] Registros DNS requeridos (dados por Vercel):
+  - `A  unidadpediatricabuenaventura.com  →  76.76.21.21`
+  - `A  www.unidadpediatricabuenaventura.com  →  76.76.21.21`
+- [x] Pam editó en HostGator (Zona avanzada de DNS): registro A de `unidadpediatricabuenaventura.com` cambiado de `162.241.61.243` a `76.76.21.21`
+- [x] `www.unidadpediatricabuenaventura.com` ya era CNAME → apunta al dominio raíz, no requirió cambio (sigue automáticamente al nuevo A)
+- [x] DNS propagado y confirmado (`dig` + `curl`): `http://unidadpediatricabuenaventura.com` ya sirve el sitio real desde Vercel (200 OK, `Server: Vercel`)
+- [x] HTTPS: certificado SSL (Let's Encrypt) finalmente emitido ~11h después de verificado el dominio (tardó mucho más de lo normal, se había escalado a soporte de Vercel vía ticket) — confirmado con `curl`: `unidadpediatricabuenaventura.com` y `www` responden 200 OK con cert válido
+- [x] Correo (MX) verificado intacto en HostGator, sin cambios
+
+## Dominio conectado — resumen final
+`unidadpediatricabuenaventura.com` y `www.unidadpediatricabuenaventura.com` funcionando en producción sobre Vercel, con HTTPS activo, dominio sigue registrado en HostGator, correo sin afectación.
+- [ ] Pendiente relacionado de la sesión anterior: una vez el dominio esté verificado, verificar el dominio también en resend.com/domains para que el correo de confirmación a los padres funcione en real (hoy solo llega a la casilla de prueba)
+
 ## Lessons (nueva, parte 2)
 - El optimizador de imágenes de `next dev` (`/_next/image`) cachea en memoria del proceso; si se reemplaza un archivo en `/public` sin reiniciar el servidor **de verdad** (matar el proceso, no solo el puerto — `npm run dev &` a veces deja un proceso zombie que sigue respondiendo en el mismo puerto), se sigue sirviendo la versión vieja aunque el archivo en disco ya cambió. Solución: `pkill -f "next dev"` + `lsof -ti:3000 | xargs kill -9` + borrar `.next/` antes de reiniciar.
 - Para verificar el crop de una imagen antes de escribir código, usar `sips -c H W --cropOffset Y X` (orden Y luego X) sobre una copia de prueba y mirar el resultado — más confiable que adivinar `object-position` a ciegas.
 - Resend sandbox (sin dominio verificado) SOLO permite mandar a la casilla del dueño de la cuenta — así que cualquier función que le mande correo a un tercero (ej. confirmación al paciente) no va a funcionar en real hasta verificar un dominio propio.
+
+## Sesión 2026-08-04: investigación de keywords + arquitectura multi-página
+
+Con el dominio y HTTPS ya funcionando (sesión anterior), esta sesión fue de SEO/arquitectura:
+- [x] Investigación de ~20 búsquedas reales de la zona (Guatire/Guarenas/Miranda) cruzando categorías de directorios médicos venezolanos (Infoguia, Mi Guía Médica, Guía Miranda) con el nicho del doctor
+- [x] Auditoría de arquitectura completa: mismatch entre el menú y el orden real de las secciones, "Sobre el Doctor" sin `id` (no enlazable), `metadataBase`/OG/JSON-LD apuntando todavía al dominio viejo de Vercel, sin `sitemap.xml`/`robots.txt`, video del Hero de 18.7MB precargándose completo desde el inicio
+- [x] Mensaje de WhatsApp actualizado en los 7 botones con CTA (`¡Hola! Vengo desde la página web y...`) para identificar el origen del contacto — no se tocó el link del Footer (solo muestra el número, sin texto)
+- [x] Creadas 5 páginas nuevas con metadata propia apuntando al dominio real: `/pediatria`, `/neurologia`, `/vacunas`, `/seguros`, `/preguntas-frecuentes` (con JSON-LD `FAQPage`)
+- [x] Contenido de `/neurologia` reutiliza texto ya aprobado de los modales "Desarrollo neurológico" y "Autismo (TEA)" de `EspacioPadres.tsx` — nada clínico nuevo inventado
+- [x] `Navbar.tsx` reestructurado: dropdown "Servicios" (Pediatría/Neurología/Vacunas/Seguros) + resto de links en su orden real; los anchors pasan de `#seccion` a `/#seccion` para funcionar también desde las páginas nuevas
+- [x] `Servicios.tsx` acortado (2-3 puntos en vez de 5) + botón "Ver más" a la página dedicada, para no duplicar contenido (mejor para SEO)
+- [x] `SobreElDoctor.tsx` ahora tiene `id="doctor"`
+- [x] `app/layout.tsx`: `metadataBase`, `openGraph.url` y URLs del JSON-LD corregidas a `unidadpediatricabuenaventura.com`
+- [x] `ffmpeg` instalado vía Homebrew y video del Hero comprimido: `video1.mov` 19.6MB → `video1.mp4` 1.9MB, `video2.mov` 1.5MB → `video2.mp4` 0.7MB (misma duración, confirmada con `ffprobe`). Los `.mov` viejos se borraron (recuperables en el historial de git)
+- [x] `GaleriaHero.tsx`: los videos ya no se montan en el HTML inicial — confirmado con `curl` que la carga inicial de `/` tiene 0 tags `<video>`, solo se montan cuando el carrusel llega a esa diapositiva
+- [x] `npm run build` y `npm run lint` sin errores; las 8 rutas (`/`, 5 páginas nuevas, `/sitemap.xml`, `/robots.txt`) devuelven 200
+
+## Pendiente / limitación conocida (nueva)
+- **`/vacunas` no tiene un esquema de vacunas específico (edades/dosis)** — no está verificado por Pam, así que la página describe el servicio en general. Falta que Pam mande la lista/cronograma real para agregarlo como tabla.
+- **`/preguntas-frecuentes` es un borrador inicial**, armado solo con datos ya verificados en otras partes del sitio (horario, dirección, seguros). Falta que Pam revise y agregue preguntas reales que le hacen los papás.
+- No se hizo deploy a producción (`vercel --prod`) — falta confirmación de Pam antes de subir.
+
+## Lessons (nueva, parte 3)
+- Este proyecto tiene activadas las reglas nuevas de `eslint-plugin-react-hooks` (React Compiler): `react-hooks/set-state-in-effect` prohíbe llamar a un setState directamente en el cuerpo de un `useEffect` (sí está permitido si el setState queda anidado dentro de un callback async como `setInterval`/`setTimeout` dentro del efecto). `react-hooks/refs` prohíbe leer/mutar un `ref.current` durante el render (solo en efectos o event handlers) — nada de "leer un ref para derivar el JSX" aunque parezca inofensivo.
+- Cuando un video ya está en el DOM (aunque sea con `opacity-0`), el navegador intenta precargarlo igual. La forma correcta de diferir la carga es no renderizar el `<video>` (ni su `src`) hasta que el slide se vuelve activo por primera vez, guardando en estado qué índices ya fueron mostrados.

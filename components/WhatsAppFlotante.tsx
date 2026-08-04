@@ -3,7 +3,7 @@
 export default function WhatsAppFlotante() {
   return (
     <a
-      href="https://wa.me/584242984023?text=Hola,%20quisiera%20solicitar%20una%20cita"
+      href="https://wa.me/584242984023?text=%C2%A1Hola!%20Vengo%20desde%20la%20p%C3%A1gina%20web%20y%20quisiera%20agendar%20una%20cita."
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Escríbenos por WhatsApp"

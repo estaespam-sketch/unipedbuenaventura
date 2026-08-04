@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import {
   Dialog,
   DialogContent,
@@ -12,6 +13,7 @@ type Topico = {
   titulo: string;
   descripcion: string;
   color: string;
+  paginaRelacionada?: string;
   contenido: {
     intro: string;
     puntos: { titulo: string; texto: string }[];
@@ -43,6 +45,7 @@ const topicos: Topico[] = [
     titulo: "Desarrollo neurológico",
     descripcion: "¿Cómo estimular el cerebro de tu hijo en cada etapa?",
     color: "bg-indigo-100 border-indigo-200",
+    paginaRelacionada: "/neurologia",
     contenido: {
       intro: "Los primeros 3 años de vida son la etapa de mayor plasticidad cerebral. La estimulación adecuada en este periodo tiene un impacto duradero en el desarrollo cognitivo, emocional y social.",
       puntos: [
@@ -60,6 +63,7 @@ const topicos: Topico[] = [
     titulo: "Autismo (TEA)",
     descripcion: "Señales de alerta, diagnóstico temprano y recursos para familias.",
     color: "bg-blue-100 border-blue-200",
+    paginaRelacionada: "/neurologia",
     contenido: {
       intro: "El Trastorno del Espectro Autista (TEA) es una condición del neurodesarrollo que afecta la comunicación, la interacción social y los comportamientos. El diagnóstico temprano cambia vidas.",
       puntos: [
@@ -130,21 +134,30 @@ function ModalTopico({ topico, open, onClose }: { topico: Topico; open: boolean;
         {/* CTA */}
         <div className="flex gap-3 mt-2">
           <a
-            href="https://wa.me/584242984023?text=Hola,%20tengo%20una%20consulta"
+            href="https://wa.me/584242984023?text=%C2%A1Hola!%20Vengo%20desde%20la%20p%C3%A1gina%20web%20y%20tengo%20una%20consulta."
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 bg-green-500 hover:bg-green-600 text-white text-sm font-semibold py-2.5 px-4 rounded-xl text-center transition-colors"
           >
             Consultar por WhatsApp
           </a>
-          <a
-            href="#contacto"
+          <Link
+            href="/#contacto"
             onClick={onClose}
             className="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2.5 px-4 rounded-xl text-center transition-colors"
           >
             Solicitar cita
-          </a>
+          </Link>
         </div>
+        {topico.paginaRelacionada && (
+          <Link
+            href={topico.paginaRelacionada}
+            onClick={onClose}
+            className="block text-center text-sm font-semibold text-blue-700 hover:text-blue-900 underline underline-offset-2 mt-1"
+          >
+            Ver más en Neurología →
+          </Link>
+        )}
       </DialogContent>
     </Dialog>
   );
@@ -201,7 +214,7 @@ export default function EspacioPadres() {
         <div className="text-center">
           <p className="text-sm text-slate-400 mb-4">¿Tienes dudas sobre alguno de estos temas?</p>
           <a
-            href="https://wa.me/584242984023?text=Hola,%20tengo%20una%20consulta%20sobre%20uno%20de%20los%20temas%20del%20Espacio%20para%20Familias"
+            href="https://wa.me/584242984023?text=%C2%A1Hola!%20Vengo%20desde%20la%20p%C3%A1gina%20web%20y%20tengo%20una%20consulta%20sobre%20uno%20de%20los%20temas%20del%20Espacio%20para%20Familias."
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white text-sm font-semibold px-6 py-2.5 rounded-full transition-colors"
