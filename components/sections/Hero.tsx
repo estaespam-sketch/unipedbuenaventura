@@ -9,6 +9,9 @@ export default function Hero() {
             Pediatría · Neuropediatría · TEA
           </span>
           <h1 className="text-4xl md:text-5xl font-bold text-blue-900 leading-tight mb-5">
+            <span className="block text-lg md:text-xl font-semibold text-blue-600 mb-1">
+              Pediatra y Neuropediatra en Guatire
+            </span>
             Cuidando el futuro,
             <br />
             <span className="text-blue-600">un niño a la vez</span>
@@ -35,7 +38,7 @@ export default function Hero() {
               href="#contacto"
               className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-7 py-3.5 rounded-full transition-colors shadow-md text-sm"
             >
-              Solicitar Cita Online
+              Solicitar Cita
             </a>
           </div>
 

@@ -93,6 +93,24 @@ const topicos: Topico[] = [
       imagen: "🥦",
     },
   },
+  {
+    icono: "💉",
+    titulo: "Vacunación",
+    descripcion: "Esquema de vacunación al día, refuerzos y resolución de dudas frecuentes.",
+    color: "bg-emerald-100 border-emerald-200",
+    paginaRelacionada: "/vacunas",
+    contenido: {
+      intro: "La vacunación es una de las herramientas más efectivas para proteger la salud de tu hijo/a desde los primeros meses de vida. Te acompañamos en el cumplimiento de su esquema de vacunación, con seguimiento personalizado en cada consulta.",
+      puntos: [
+        { titulo: "Revisión del carnet de vacunación", texto: "En cada visita revisamos el carnet para confirmar qué dosis corresponden según la edad de tu hijo/a." },
+        { titulo: "Aplicación en consulta", texto: "Las vacunas se aplican en un ambiente tranquilo, pensado para reducir el estrés de los más pequeños (y de sus papás)." },
+        { titulo: "Seguimiento post-vacunación", texto: "Te orientamos sobre las reacciones esperadas y cuándo consultar si algo te preocupa." },
+        { titulo: "Vacunación al día para el colegio", texto: "Te ayudamos a mantener la documentación de vacunación que suelen pedir colegios y guarderías." },
+      ],
+      consejo: "Trae siempre el carnet de vacunación a la consulta — así llevamos un seguimiento preciso de cada dosis.",
+      imagen: "💉",
+    },
+  },
 ];
 
 function ModalTopico({ topico, open, onClose }: { topico: Topico; open: boolean; onClose: () => void }) {
@@ -155,7 +173,7 @@ function ModalTopico({ topico, open, onClose }: { topico: Topico; open: boolean;
             onClick={onClose}
             className="block text-center text-sm font-semibold text-blue-700 hover:text-blue-900 underline underline-offset-2 mt-1"
           >
-            Ver más en Neurología →
+            Ver más →
           </Link>
         )}
       </DialogContent>
@@ -182,7 +200,7 @@ export default function EspacioPadres() {
         </div>
 
         {/* Tópicos con botón */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-16">
           {topicos.map((t, i) => (
             <div
               key={t.titulo}

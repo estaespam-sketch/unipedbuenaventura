@@ -58,7 +58,7 @@ export default function Servicios() {
             Nuestros Servicios
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
-            Especialidades que ofrecemos
+            Especialidades en Pediatría y Neuropediatría en Guatire
           </h2>
           <p className="text-slate-500 max-w-xl mx-auto">
             Atención médica de calidad, con el cuidado y la calidez que tu familia merece.

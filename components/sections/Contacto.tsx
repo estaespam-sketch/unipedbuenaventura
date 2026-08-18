@@ -34,7 +34,7 @@ function InstagramCard({ username, nombre, posts }: { username: string; nombre: 
       </a>
 
       {/* Posts con imagen real */}
-      <div className="grid grid-cols-3 gap-1.5">
+      <div className={`grid gap-1.5 ${posts.length === 2 ? "grid-cols-2" : "grid-cols-3"}`}>
         {posts.map((post, i) => (
           <a key={i} href={profileUrl} target="_blank" rel="noopener noreferrer"
             className="aspect-square rounded-xl overflow-hidden relative group hover:opacity-90 transition-opacity">
@@ -193,7 +193,6 @@ export default function Contacto() {
               username="unipedguatire"
               nombre="Unidad Pediátrica Buenaventura"
               posts={[
-                { src: "/posts/post1.png", caption: "Quedan pocos cupos" },
                 { src: "/posts/post2.png", caption: "Vacúnalos" },
                 { src: "/posts/post3.png", caption: "Nuevos seguros disponibles" },
               ]}

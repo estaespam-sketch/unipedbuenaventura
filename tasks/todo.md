@@ -95,8 +95,23 @@ Con el dominio y HTTPS ya funcionando (sesión anterior), esta sesión fue de SE
 ## Pendiente / limitación conocida (nueva)
 - **`/vacunas` no tiene un esquema de vacunas específico (edades/dosis)** — no está verificado por Pam, así que la página describe el servicio en general. Falta que Pam mande la lista/cronograma real para agregarlo como tabla.
 - **`/preguntas-frecuentes` es un borrador inicial**, armado solo con datos ya verificados en otras partes del sitio (horario, dirección, seguros). Falta que Pam revise y agregue preguntas reales que le hacen los papás.
-- No se hizo deploy a producción (`vercel --prod`) — falta confirmación de Pam antes de subir.
+- [x] Deploy a producción (`vercel --prod`) hecho el 2026-08-11, verificado con `curl` (200 en las 8 rutas vía alias `unipedbuenaventura.vercel.app`; no se pudo probar el dominio propio directamente por DNS del sandbox, pero apunta al mismo deploy)
 
 ## Lessons (nueva, parte 3)
 - Este proyecto tiene activadas las reglas nuevas de `eslint-plugin-react-hooks` (React Compiler): `react-hooks/set-state-in-effect` prohíbe llamar a un setState directamente en el cuerpo de un `useEffect` (sí está permitido si el setState queda anidado dentro de un callback async como `setInterval`/`setTimeout` dentro del efecto). `react-hooks/refs` prohíbe leer/mutar un `ref.current` durante el render (solo en efectos o event handlers) — nada de "leer un ref para derivar el JSX" aunque parezca inofensivo.
 - Cuando un video ya está en el DOM (aunque sea con `opacity-0`), el navegador intenta precargarlo igual. La forma correcta de diferir la carga es no renderizar el `<video>` (ni su `src`) hasta que el slide se vuelve activo por primera vez, guardando en estado qué índices ya fueron mostrados.
+
+## Sesión 2026-08-18: cumplimiento normativo (FMV) + SEO H1/H2/keywords + tarjeta Vacunación
+
+- [x] Detectado y corregido: la tarjeta de Instagram @unipedguatire mostraba una captura (`post1.png`) con el texto "QUEDAN POCOS CUPOS" diseñado dentro de la imagen — lenguaje de urgencia/escasez del tipo que la Federación Médica de Venezuela ha sancionado. Como el texto está en los píxeles (no editable por código), se quitó esa captura del carrusel en `Contacto.tsx` y se ajustó el grid a 2 columnas para esa tarjeta.
+- [x] SEO: `keywords` en `app/layout.tsx` ampliado de 6 a 14 términos (variantes de Guarenas, TDAH, urgencias, control niño sano, etc.)
+- [x] SEO: H1 del Hero ahora incluye "Pediatra y Neuropediatra en Guatire" como línea superior dentro de la misma etiqueta `<h1>`, sin cambiar el diseño visual
+- [x] SEO: H2 de Servicios cambiado a "Especialidades en Pediatría y Neuropediatría en Guatire"
+- [x] Agregada 5ta tarjeta "Vacunación" en `EspacioPadres.tsx`, enlazando a `/vacunas` (ya existía) y reusando el contenido ya aprobado de esa página para el modal — nada clínico nuevo inventado
+- [x] Bug encontrado y arreglado de paso: el link "Ver más" del modal de `EspacioPadres.tsx` decía siempre "Ver más en Neurología →" sin importar la página destino (afectaba a la nueva tarjeta de Vacunación); ahora es genérico "Ver más →"
+- [x] Grid de "Para papás y mamás" ajustado a 5 columnas en desktop para que las 5 tarjetas queden parejas en una fila
+- [x] Verificado con Playwright (screenshots desktop + mobile) que no rompió nada visualmente; `npm run build` y `npm run lint` sin errores
+
+## Pendiente
+- **Typo de NAP en Google Business Profile** ("Centro Medico Buenventura" → "Centro Médico Buenaventura"): es manual, se corrige directamente en la ficha de Google, no en el código.
+- La imagen original con "Quedan pocos cupos" podría seguir en el Instagram real de @unipedguatire (si la historia sigue activa) — esto solo la quitó de la web.
