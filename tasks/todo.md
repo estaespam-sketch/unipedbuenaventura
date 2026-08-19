@@ -115,3 +115,11 @@ Con el dominio y HTTPS ya funcionando (sesión anterior), esta sesión fue de SE
 ## Pendiente
 - **Typo de NAP en Google Business Profile** ("Centro Medico Buenventura" → "Centro Médico Buenaventura"): es manual, se corrige directamente en la ficha de Google, no en el código.
 - La imagen original con "Quedan pocos cupos" podría seguir en el Instagram real de @unipedguatire (si la historia sigue activa) — esto solo la quitó de la web.
+- Directorios (Infoguia, Zaubee, TodosNegocios) con NAP desactualizado (nombre de edificio y/o sitio web apuntando a un placeholder de Google) — Pam se está encargando manualmente (llamada + correo + formulario, no es código).
+
+## Sesión 2026-08-18 (parte 2): sincroniza horario con Google Business Profile
+
+- [x] Pam actualizó el horario en la ficha de Google a Lunes-Viernes 8:00am–4:00pm uniforme (antes variaba por día), Sábado y domingo sigue cerrado
+- [x] `Contacto.tsx`: horario visible actualizado a Lunes-Viernes 8:00am–4:00pm (antes: Lun/Mar 8-5pm, Mié 8-3pm, Jue/Vie 8-4pm)
+- [x] `app/layout.tsx`: JSON-LD `openingHoursSpecification` simplificado a una sola entrada Lunes-Viernes 08:00-16:00 (antes 3 entradas con horas distintas por día)
+- [x] `npm run build` y `npm run lint` sin errores

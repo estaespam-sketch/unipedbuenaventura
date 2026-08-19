@@ -150,9 +150,9 @@ export default function Contacto() {
               <div className="flex flex-col gap-2">
                 <p className="font-semibold text-blue-900 text-sm">Horario de atención</p>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm text-slate-600">
-                  <span>Lunes</span><span>8:00am – 5:00pm</span>
-                  <span>Martes</span><span>8:00am – 5:00pm</span>
-                  <span>Miércoles</span><span>8:00am – 3:00pm</span>
+                  <span>Lunes</span><span>8:00am – 4:00pm</span>
+                  <span>Martes</span><span>8:00am – 4:00pm</span>
+                  <span>Miércoles</span><span>8:00am – 4:00pm</span>
                   <span>Jueves</span><span>8:00am – 4:00pm</span>
                   <span>Viernes</span><span>8:00am – 4:00pm</span>
                   <span className="text-slate-400">Sábado y domingo</span><span className="text-slate-400">Cerrado</span>
